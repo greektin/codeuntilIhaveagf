@@ -1,0 +1,77 @@
+import turtle
+import random
+import time
+
+# Thiết lập cửa sổ Turtle
+screen = turtle.Screen()
+screen.bgcolor("black")
+
+# Tạo một đối tượng turtle cho trái tim chính
+pen = turtle.Turtle()
+pen.color("red")
+pen.speed(3)
+
+# Hàm vẽ trái tim
+def draw_heart(turtle_pen, size):
+    turtle_pen.begin_fill()
+    turtle_pen.left(140)
+    turtle_pen.forward(1.12 * size)
+    turtle_pen.circle(-0.56 * size, 200)
+    turtle_pen.left(120)
+    turtle_pen.circle(-0.56 * size, 200)
+    turtle_pen.forward(1.12 * size)
+    turtle_pen.end_fill()
+
+# Vẽ trái tim chính
+pen.penup()
+pen.goto(0, 0)
+pen.pendown()
+draw_heart(pen, 200)
+
+# Di chuyển bút để viết chữ
+pen.penup()
+pen.goto(0, -240)
+pen.color("white")
+pen.write("I love you", align="center", font=("Arial", 24, "bold"))
+pen.hideturtle()
+
+# Hàm tạo và di chuyển các trái tim bay
+def create_flying_heart():
+    flying_heart = turtle.Turtle()
+    flying_heart.speed(0)
+    flying_heart.color("pink")
+    flying_heart.penup()
+    flying_heart.shape("heart")  # Đặt hình dạng là "heart" tùy chỉnh
+    x = random.randint(-screen.window_width()//2, screen.window_width()//2)
+    y = random.randint(-screen.window_height()//2, screen.window_height()//2)
+    flying_heart.goto(x, y)
+    return flying_heart
+
+def move_hearts(hearts):
+    for heart in hearts:
+        heart.setheading(random.randint(0, 360))
+        heart.forward(random.randint(10, 20))
+        if abs(heart.xcor()) > screen.window_width() // 2 or abs(heart.ycor()) > screen.window_height() // 2:
+            heart.goto(random.randint(-screen.window_width() // 2, screen.window_width() // 2),
+                       random.randint(-screen.window_height() // 2, screen.window_height() // 2))
+
+# Tạo hình dạng trái tim tùy chỉnh
+heart_shape = turtle.Turtle()
+heart_shape.hideturtle()
+heart_shape.penup()
+heart_shape.begin_poly()
+draw_heart(heart_shape, 20)
+heart_shape.end_poly()
+heart = heart_shape.get_poly()
+screen.register_shape("heart", heart)
+
+# Tạo các trái tim bay
+flying_hearts = [create_flying_heart() for _ in range(20)]
+
+# Di chuyển các trái tim bay
+while True:
+    move_hearts(flying_hearts)
+    time.sleep(0.05)
+
+# Đợi người dùng đóng cửa sổ
+screen.mainloop()
