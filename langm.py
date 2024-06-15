@@ -1,4 +1,6 @@
 #nếu bạn dc tôi gửi cho repository này là bạn là người được tôi chọn
+#Để chạy code này trên android tải Pydroid3
+#Để chạy code trên ios tải Python3IDE
 import math 
 from turtle import *
 def hearta(k):
