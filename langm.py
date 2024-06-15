@@ -1,3 +1,4 @@
+#nếu bạn dc tôi gửi cho repository này là bạn là người được tôi chọn
 import math 
 from turtle import *
 def hearta(k):
